@@ -10,13 +10,15 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["lib/rrweb.js",  "content-scripts/dom-mutation/bundler.js"]
+      "js": ["lib/rrweb.js", "content-scripts/dom-mutation/bundler.js"]
     }
   ],
   "action": {
     "default_icon": "icons/server_down.png"
   },
-  "permissions": [
-    "tabs"
-  ]
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": false
+  },
+  "permissions": ["tabs", "activeTab", "storage"]
 }

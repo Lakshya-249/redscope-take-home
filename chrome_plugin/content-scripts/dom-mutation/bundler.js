@@ -8,16 +8,32 @@
  * 2. And sending message to background script is very trivial.  Its the background script which talks to
  * web socket
  */
+// import { v4 as uuidv4 } from "uuid";
+
+var val = 0;
+var valeb = 0;
 rrweb.record({
   emit(event) {
     const url = window.top.location.href;
     const payload = {
+      sessionId: 0,
       url: url,
-      type: 'rrweb events',
-      data: JSON.stringify(event)
-    }
-
+      type: "rrweb events",
+      data: JSON.stringify(event),
+    };
     // Send message to background script
-    chrome.runtime.sendMessage(payload);
+    chrome.runtime.sendMessage({ ...payload, sessionId: valeb });
+  },
+});
+
+// Adding an eventListner for adding new session after closing and restarting on clicking the button with id startsession1 and end session2
+document.addEventListener("click", (e) => {
+  var target = e.target;
+  if (target && target.id === "startsession1") {
+    val++; // Increment valeb
+    valeb = val;
+    // When the "startsession" button is clicked, send a message to content script to check and send the session ID
+  } else if (target && target.id === "endsession1") {
+    valeb = 0;
   }
 });
